@@ -37,7 +37,7 @@ const App = () => {
         sessionStorage.removeItem('courrielUtilisateur');
     }
 
-        const routerIsLoggedIn = createBrowserRouter([
+    const routerIsLoggedIn = createBrowserRouter([
         {
             path: "/",
             element: <RootLayout />,
