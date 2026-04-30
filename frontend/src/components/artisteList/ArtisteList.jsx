@@ -5,7 +5,7 @@ import ArtisteCard from "../artisteCard/ArtisteCard";
 import Modal from "../modal/modal";
 import { useState, useEffect, useContext } from "react";
 
-const artisteList = (props) => {
+const ArtisteList = (props) => {
 
      const [artistes, setArtistes] = useState(() => {
         const storedArtistes = localStorage.getItem("artistes");
@@ -41,7 +41,7 @@ const artisteList = (props) => {
     }
 
     const filtrerArtistes = artistes.filter((artiste) =>
-        artiste.titre.toLowerCase().includes(searchTerm.toLowerCase())
+        artiste.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -77,10 +77,10 @@ const artisteList = (props) => {
                         <ArtisteCard
                             key={artiste.id}
                             id={artiste.id}
-                            titre={artiste.titre}
-                            categorie={artiste.categorie}
-                            nombreJoueurs={artiste.nombreJoueurs}
-                            temps={artiste.temps}
+                            name={artiste.name}
+                            category={artiste.category}
+                            songPop={artiste.songPop}
+                            description={artiste.description}
                             OnDelete={startDeleteHandler}
                         />
                     ))}
@@ -90,4 +90,4 @@ const artisteList = (props) => {
     );
 };
 
-export default ArtisteList
+export default ArtisteList;

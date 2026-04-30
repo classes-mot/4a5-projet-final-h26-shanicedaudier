@@ -1,8 +1,8 @@
-import GameForm from "../components/gameForm/GameForm";
+import ArtisteForm from "../components/artisteForm/ArtisteForm";
 
-const NewGame = () => {
-    return <GameForm />
+const NewArtiste = () => {
+    return <ArtisteForm />
 };
 
 
-export default NewGame;
+export default NewArtiste;

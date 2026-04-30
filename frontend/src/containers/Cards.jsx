@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import GameList from "../components/gameList/GameList";
-import { GAMES } from "../data/games";
+import ArtisteList from "../components/artisteList/ArtisteList";
+import { ARTISTES } from "../data/artistes";
 
 const Cards = () => {
 
-    return <GameList items={GAMES} />;
+    return <ArtisteList items={ARTISTES} />;
 };
 
 export default Cards;

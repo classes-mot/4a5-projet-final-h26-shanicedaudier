@@ -14,7 +14,7 @@ const ArtisteForm = () => {
             if (artisteToEdit) {return artisteToEdit};
        } return {
             name: "",
-            category: "Stratégie",
+            category: "Rap",
             songPop: "",
             description: ""
         };
@@ -26,7 +26,7 @@ const ArtisteForm = () => {
         if (artisteId) {
             document.name = `Modification : ${formData.name}`;
         } else {
-            document.name = "Ajouter un nouveau artiste";
+            document.name = "Ajouter un nouvel artiste";
         }
     }, [artisteId, formData.name]);
 
@@ -62,7 +62,7 @@ const ArtisteForm = () => {
     return (
         <div className="form_container">
             <Card className="form_card">
-                <h2 className="name">{artisteId ? "Modifier le artiste" : "Ajouter un artiste"}</h2>
+                <h2 className="name">{artisteId ? "Modifier l'artiste" : "Ajouter un artiste"}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="control">
                         <label>Nom</label>
@@ -86,26 +86,25 @@ const ArtisteForm = () => {
                     </div>
 
                     <div className="control">
-                        <label>Nombre de joueurs</label>
+                        <label>Chanson la plus populaire</label>
                         <input
                             type="text"
-                            name="nombreJoueurs"
-                            value={formData.nombreJoueurs}
+                            name="songPop"
+                            value={formData.songPop}
                             onChange={handleChange}
-                            placeholder="ex: 2-4"
                         />
-                        {errors.nombreJoueurs && <span className="error">{errors.nombreJoueurs}</span>}
+                        {errors.songPop && <span className="error">{errors.songPop}</span>}
                     </div>
 
                     <div className="control">
-                        <label>Durée (min)</label>
+                        <label>Description</label>
                         <input
-                            type="number"
-                            name="temps"
-                            value={formData.temps}
+                            type="text"
+                            name="description"
+                            value={formData.description}
                             onChange={handleChange}
                         />
-                        {errors.temps && <span className="error">{errors.temps}</span>}
+                        {errors.description && <span className="error">{errors.description}</span>}
                     </div>
 
                     <div className="btn_actions">

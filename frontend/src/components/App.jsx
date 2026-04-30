@@ -6,8 +6,8 @@ import RootLayout from "../containers/Roots";
 import ErrorPage from "../containers/ErrorPage";
 import Auth from "../containers/Auth";
 import Cards from "../containers/Cards";
-import NewGame from "../containers/NewGame";
-import UpdateGame from "../containers/UpdateGame";
+import NewArtiste from "../containers/NewArtiste";
+import UpdateArtiste from "../containers/UpdateArtiste";
 import Subscribe from "../containers/Subscribe";
 
 
@@ -44,8 +44,8 @@ const App = () => {
             errorElement: <ErrorPage />,
             children: [
                 { path: "", element: <Cards /> },
-                { path: "newGame", element: <NewGame /> },
-                { path: "edit/:gameId", element: <UpdateGame /> },
+                { path: "newArtiste", element: <NewArtiste /> },
+                { path: "edit/:Id", element: <UpdateArtiste /> },
                 { path: "auth", element: <Navigate to="/" replace /> },
                 { path: "subscribe", element: <Navigate to="/" replace /> },
             ],
@@ -61,8 +61,8 @@ const App = () => {
                 { path: "", element: <Cards /> },
                 { path: "auth", element: <Auth /> },
                 { path: "subscribe", element: <Subscribe /> },
-                { path: "newGame", element: <Navigate to="/auth" replace /> },
-                { path: "edit/:gameId", element: <Navigate to="/auth" replace /> },
+                { path: "newArtiste", element: <Navigate to="/auth" replace /> },
+                { path: "edit/:artisteId", element: <Navigate to="/auth" replace /> },
             ],
         },
     ]);
