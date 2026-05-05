@@ -55,6 +55,37 @@ const ArtisteList = (props) => {
                     <p>Êtes-vous sûr de vouloir supprimer cet artiste?</p>
                 </Modal>
             )}
+            <div className="hero" style={{ backgroundImage: `url(${city})` }}>
+                <div className="hero_overlay" />
+                <div className="hero_content">
+                    <span className="hero_tag">Scène musicale de Montréal</span>
+                    <h1 className="hero_titre">
+                        Découvrez les artistes<br />
+                        qui font <span className="subtitle">vibrer Montréal</span>
+                    </h1>
+                    <p className="hero_sub">
+                        Explorez la scène musicale montréalaise : rap, R&B, pop et bien plus.
+                        Chaque artiste, une histoire unique.
+                    </p>
+                    <div className="hero_boutons">
+                        {auth.loggedIn && (
+                            <Link to="/newArtiste" className="btn_ajout">+ Ajouter un artiste</Link>
+                        )}
+                    </div>
+                </div>
+                <div className="hero_stats">
+                    <div className="hero_stat">
+                        <span className="hero_stat_num">MONTRÉAL</span>
+                        <span className="stat_nom">Ville</span>
+                    </div>
+                    <div className="stat_diviseur" />
+                    <div className="hero_stat">
+                        <span className="hero_stat_num">4+</span>
+                        <span className="stat_nom">Genres</span>
+                    </div>
+                </div>
+            </div>
+
             <div className="list_header">
                 <input
                     type="text"
@@ -63,7 +94,6 @@ const ArtisteList = (props) => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-
                 {auth.loggedIn && (<Link to="/newArtiste" className="btn">Ajouter un artiste</Link>)}
             </div>
 

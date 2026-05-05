@@ -12,7 +12,7 @@ const ArtisteCard = (props) => {
     <li className="ArtisteCard">
       <Card className="ArtisteCard_content">
         <div className="ArtisteCard_header">
-          <ArtisteImage category={props.category} />
+          <ArtisteImage category={props.category} name={props.name}/>
         </div>
 
         <div className="ArtisteCard_info">
