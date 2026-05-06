@@ -1,0 +1,63 @@
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.nav-links li a {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-links li a:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+.nav-links li a.active {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+/* Connexion / Inscription boutons */
+.nav-links li:last-child a,
+.nav-links li:nth-last-child(2) a {
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-subtle);
+  padding: 5px 16px;
+}
+.nav-links li:last-child a:hover,
+.nav-links li:nth-last-child(2) a:hover {
+  border-color: var(--text-secondary);
+  background: transparent;
+}
+
+/* Déconnexion */
+.nav-links .logout-link a {
+  color: var(--accent-pink);
+  border: 1.5px solid var(--accent-pink);
+}
+.nav-links .logout-link a:hover {
+  background: var(--accent-pink);
+  color: #fff;
+}
+
+/* Mobile drawer stacked */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .nav-links li a {
+    font-size: 15px;
+    padding: 8px 12px;
+    width: 100%;
+  }
+}

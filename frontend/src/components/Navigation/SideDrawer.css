@@ -1,0 +1,23 @@
+.side-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  z-index: 200;
+  padding-top: 56px;
+  animation: slideIn 0.22s ease;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+}
+
+@keyframes slideIn {
+  from { 
+    transform: translateX(-100%); 
+    opacity: 0; }
+  to   { 
+    transform: translateX(0);     
+    opacity: 1; 
+  }
+}

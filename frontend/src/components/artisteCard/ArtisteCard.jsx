@@ -12,7 +12,7 @@ const ArtisteCard = (props) => {
     <li className="ArtisteCard">
       <Card className="ArtisteCard_content">
         <div className="ArtisteCard_header">
-          <ArtisteImage category={props.category} name={props.name}/>
+          <ArtisteImage image={props.image} name={props.name}/>
         </div>
 
         <div className="ArtisteCard_info">
@@ -24,7 +24,7 @@ const ArtisteCard = (props) => {
 
         {auth.loggedIn && 
         <div className="ArtisteCard_actions">
-          <Link to={`/edit/${props.id}`}>
+          <Link to={`/admin/artistes/edit/${props.id}`}>
             <button className="btn-pink">Modifier</button>
           </Link>
           <button className="btn-pink-outline" onClick={() => props.OnDelete(props.id)}>Supprimer</button>

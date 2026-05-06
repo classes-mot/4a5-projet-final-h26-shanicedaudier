@@ -33,6 +33,21 @@ export default function LoginForm() {
             auth.login("ul", data.email);
             navigate("/");
         }
+
+        if (valid) {
+            const utilisateurs = JSON.parse(localStorage.getItem("utilisateurs")) || UTILISATEURS;
+            const trouve = utilisateurs.find(
+                (u) => u.email === data.email && u.password === data.password
+            );
+            if (!trouve) {
+                setEmailVide(true);
+                setMdpVide(true);
+                return;
+            }
+            auth.login(trouve.id, trouve.email);
+            navigate("/");
+        }
+
     };
     return (
         <div className="auth_container">

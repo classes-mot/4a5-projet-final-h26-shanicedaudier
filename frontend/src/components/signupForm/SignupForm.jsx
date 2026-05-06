@@ -2,10 +2,12 @@ import { useState, useContext } from "react";
 import "./SignupForm.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { UTILISATEURS } from "../../data/utilisateurs";
 
 export default function Signup() {
 
     const [passwordNotEqual, setPasswordNotEqual] = useState(false);
+    const [emailExiste, setEmailExiste] = useState(false);
     const auth = useContext(AuthContext)
     const  navigate = useNavigate();
 
@@ -14,17 +16,36 @@ export default function Signup() {
         const fd = new FormData(event.target);
         const data = Object.fromEntries(fd.entries());
 
+        setPasswordNotEqual(false);
+        setEmailExiste(false);
+
         if (data.password !== data["confirmez-mdp"]) {
-            console.log("Les mots de passes sont différents")
             setPasswordNotEqual(true);
             return;
         }
-        setPasswordNotEqual(false);
-        console.log("Data inscription réussite", data)
 
-        auth.login("ul", data.courriel);
-        navigate("/");
+        // Vérifier si le courriel existe déjà
+        const utilisateurs = JSON.parse(localStorage.getItem("utilisateurs")) || UTILISATEURS;
+        if (utilisateurs.find((u) => u.email === data.courriel)) {
+            setEmailExiste(true);
+            return;
+        }
+
+        // Sauvegarder le nouvel utilisateur
+        const nouvelUtilisateur = {
+            id: "u" + Math.random().toString(36).substring(2, 6),
+            email: data.courriel,
+            password: data.password,
+            prenom: data["first-name"],
+            nom: data["last-name"],
+        };
+        utilisateurs.push(nouvelUtilisateur);
+        localStorage.setItem("utilisateurs", JSON.stringify(utilisateurs));
+
+        // Rediriger vers login après inscription
+        navigate("/admin/login");
     }
+
     return (
         <div className="auth_container">
             <form className="form" onSubmit={handleSubmit}>
@@ -34,6 +55,7 @@ export default function Signup() {
                 <div className="control">
                     <label htmlFor="email">Courriel</label>
                     <input id="email" type="email" name="courriel" required />
+                    {emailExiste && <div className="erreur_msg">Ce courriel est déjà utilisé.</div>}
                 </div>
 
                 <div className="control_row">

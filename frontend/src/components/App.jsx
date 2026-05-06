@@ -9,6 +9,7 @@ import Cards from "../containers/Cards";
 import NewArtiste from "../containers/NewArtiste";
 import UpdateArtiste from "../containers/UpdateArtiste";
 import Subscribe from "../containers/Subscribe";
+import AdminNavigation from "./Navigation/AdminNavigation";
 
 
 
@@ -24,49 +25,61 @@ const App = () => {
         setIsLoggedIn(true);
         setIdUtilisateur(userId);
         setCourrielUtilisateur(email);
-        sessionStorage.setItem('idUtilisateur', userId);
-        sessionStorage.setItem('courrielUtilisateur', email);
-
+        localStorage.setItem('idUtilisateur', userId);
+        localStorage.setItem('courrielUtilisateur', email);
     };
+
 
     const logout = () => {
         setIsLoggedIn(false);
         setIdUtilisateur(null);
         setCourrielUtilisateur(null);
-        sessionStorage.removeItem('idUtilisateur');
-        sessionStorage.removeItem('courrielUtilisateur');
+        localStorage.removeItem('idUtilisateur');
+        localStorage.removeItem('courrielUtilisateur');
     }
 
-    const routerIsLoggedIn = createBrowserRouter([
+    //Router public - accueil + page de connexion admin
+    const publicRouter = createBrowserRouter([
         {
             path: "/",
-            element: <RootLayout />,
-            errorElement: <ErrorPage />,
+            element: <RootLayout/>,
+            errorElement: <ErrorPage/>,
             children: [
-                { path: "", element: <Cards /> },
-                { path: "newArtiste", element: <NewArtiste /> },
-                { path: "edit/:Id", element: <UpdateArtiste /> },
-                { path: "auth", element: <Navigate to="/" replace /> },
-                { path: "subscribe", element: <Navigate to="/" replace /> },
+                { index: true, element: <Cards/> },
             ],
+        },
+        { 
+            path: "/admin/login", 
+            element: <Auth />, 
+        },
+        { 
+            path: "/admin/register", 
+            element: <Subscribe />, 
+        },
+        { 
+            path: "*", 
+            element: <Navigate to="/" replace/> 
         },
     ]);
 
-    const routerIsNotLoggedIn = createBrowserRouter([
+    //Router admin - zone protégée
+    const adminRouter = createBrowserRouter([
         {
             path: "/",
-            element: <RootLayout />,
+            element: <AdminNavigation />,
             errorElement: <ErrorPage />,
             children: [
-                { path: "", element: <Cards /> },
-                { path: "auth", element: <Auth /> },
-                { path: "subscribe", element: <Subscribe /> },
-                { path: "newArtiste", element: <Navigate to="/auth" replace /> },
-                { path: "edit/:artisteId", element: <Navigate to="/auth" replace /> },
+                { index: true, element: <Navigate to="/admin/artistes" replace/> },
+                { path: "admin/artistes", element: <Cards/> },
+                { path: "admin/newArtiste", element: <NewArtiste/> },
+                { path: "admin/artistes/edit/:artisteId", element: <UpdateArtiste/> },
             ],
         },
+        { 
+            path: "*", 
+            element: <Navigate to="/admin/artistes" replace /> 
+        },
     ]);
-    
 
     const authContextValue = {
         loggedIn: isLoggedIn,
@@ -78,7 +91,7 @@ const App = () => {
 
     return (
         <AuthContext.Provider value={authContextValue}>
-            <RouterProvider router={isLoggedIn ? routerIsLoggedIn : routerIsNotLoggedIn} />;
+            <RouterProvider router={isLoggedIn ? adminRouter : publicRouter} />
         </AuthContext.Provider>
     )
 }

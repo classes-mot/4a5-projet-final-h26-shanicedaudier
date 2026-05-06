@@ -1,0 +1,84 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  animation: fadeIn 0.18s ease;
+  padding: 16px;
+}
+
+.modal_container {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-xl) !important;
+  min-width: 320px;
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(20px); 
+    opacity: 0; 
+  }
+  to   { 
+    transform: translateY(0);    
+    opacity: 1; }
+}
+
+.modal_header {
+  padding: 20px 24px 0;
+}
+.modal_header h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modal_body {
+  padding: 16px 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.modal_footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0 24px 20px;
+}
+
+.button_cancel {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-subtle);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+.button_cancel:hover { 
+  border-color: var(--text-secondary); color: var(--text-primary); 
+}
+
+.button_confirm {
+  background: var(--accent-red);
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity var(--transition);
+}
+.button_confirm:hover { 
+  opacity: 0.85; 
+}

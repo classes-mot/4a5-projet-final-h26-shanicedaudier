@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../UIElements/Card";
 import "./ArtisteForm.css";
@@ -6,6 +6,7 @@ import "./ArtisteForm.css";
 const ArtisteForm = () => {
     const navigate = useNavigate();
     const { artisteId } = useParams();
+    const fileInputRef = useRef();
 
     const [formData, setFormData] = useState(() =>{
        if (artisteId) {
@@ -16,11 +17,14 @@ const ArtisteForm = () => {
             name: "",
             category: "Rap",
             songPop: "",
+            image: null,
             description: ""
         };
     });
 
+    const [preview, setPreview] = useState(formData.image || null);
     const [errors, setErrors] = useState({});
+    const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
         if (artisteId) {
@@ -33,6 +37,39 @@ const ArtisteForm = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64 = reader.result;
+            setPreview(base64);
+            setFormData((prev) => ({ ...prev, image: base64 }));
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleRemoveImage = () => {
+        setPreview(null);
+        setFormData((prev) => ({ ...prev, image: null }));
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const file = e.dataTransfer.files[0];
+        if (!file || !file.type.startsWith("image/")) return;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64 = reader.result;
+            setPreview(base64);
+            setFormData((prev) => ({ ...prev, image: base64 }));
+        };
+        reader.readAsDataURL(file);
     };
 
     const validate = () => {
@@ -49,14 +86,20 @@ const ArtisteForm = () => {
         if (!validate()) return;
 
         let storedArtistes = JSON.parse(localStorage.getItem("artistes")) || [];
+        //Sauvegarder l'image uploadée dans imageUploadee (séparé de l'image par défaut)
+        const { image, ...donneesSansImage } = formData;
+        const donneesAStorager = {
+            ...donneesSansImage,
+            imageUploadee: image && image.startsWith("data:") ? image : undefined,
+        };
         if (artisteId) {
-            storedArtistes = storedArtistes.map((artiste) => (artiste.id === artisteId ? { ...formData } : artiste));
+            storedArtistes = storedArtistes.map((artiste) => (artiste.id === artisteId ? { ...donneesAStorager } : artiste));
         } else {
-            const newArtiste = { ...formData, id: "artiste" + Math.random().toString(36).substring(2, 4) };
+            const newArtiste = { ...donneesAStorager, id: "artiste" + Math.random().toString(36).substring(2, 4) };
             storedArtistes.push(newArtiste);
         }
         localStorage.setItem("artistes", JSON.stringify(storedArtistes));
-        navigate("/");
+        navigate("/admin/artistes");
     };
 
     return (
@@ -64,6 +107,7 @@ const ArtisteForm = () => {
             <Card className="form_card">
                 <h2 className="name">{artisteId ? "Modifier l'artiste" : "Ajouter un artiste"}</h2>
                 <form onSubmit={handleSubmit}>
+
                     <div className="control">
                         <label>Nom</label>
                         <input
@@ -97,6 +141,37 @@ const ArtisteForm = () => {
                     </div>
 
                     <div className="control">
+                        <label>Image de l'artiste</label>
+                        <div
+                            className={`image_upload_zone${isDragging ? " drag_over" : ""}`}
+                            onClick={() => fileInputRef.current.click()}
+                            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                            onDragLeave={() => setIsDragging(false)}
+                            onDrop={handleDrop}
+                        >
+                            {preview ? (
+                                <img src={preview} alt="Aperçu" className="image_preview" />
+                            ) : (
+                                <div className="image_upload_placeholder">
+                                    <span>Cliquer ou déposer une image ici</span>
+                                </div>
+                            )}
+                        </div>
+
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            style={{ display: "none" }}
+                        />
+                        {preview && (
+                            <button type="button" className="btn_remove_image" onClick={handleRemoveImage}>
+                                Supprimer l'image
+                            </button>
+                        )}
+                    </div>
+                    <div className="control">
                         <label>Description</label>
                         <input
                             type="text"
@@ -108,8 +183,8 @@ const ArtisteForm = () => {
                     </div>
 
                     <div className="btn_actions">
-                        <button type="submit" className="btn_submit">Enregistrer</button>
                         <button type="button" className="btn_cancel" onClick={() => navigate("/")}>Annuler</button>
+                        <button type="submit" className="btn_submit">Enregistrer</button>
                     </div>
                 </form>
             </Card>
