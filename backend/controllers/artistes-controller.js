@@ -1,51 +1,51 @@
 import HttpError from '../util/http-error.js';
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import { Game } from '../models/games.js';
+import { Artiste } from '../models/artistes.js';
 import { User } from '../models/users.js';
 
-//getGames
-const getGames = async (req, res, next) => {
-  let games;
+//getArtistes
+const getArtistes = async (req, res, next) => {
+  let artistes;
   try {
-    games = await Game.find();
+    artistes = await Artiste.find();
   }catch(err){
     console.log("Échec de l'opération sur la base de données", err);
     return next(new HttpError("Échec de l'opération sur la base de données", 500))
   }
 
-  res.json({ games: games.map((t) => t.toObject({ getters: true })) });
+  res.json({ artistes: artistes.map((t) => t.toObject({ getters: true })) });
 };
 
 //getById
-const getGamesById = async (req, res, next) => {
-  const gameId = req.params.id; 
+const getArtistesById = async (req, res, next) => {
+  const artisteId = req.params.id; 
   
-  let game;
+  let artiste;
   try{
-    game = await Game.findById(gameId);
+    artiste = await Artiste.findById(artisteId);
   }catch(err){
     console.log("Échec de l'opération sur la base de données", err);
     return next(new HttpError("Échec de l'opération sur la base de données", 500))
   }
   
-  if (!game) {
+  if (!artiste) {
     
-    return next(new HttpError('Jeu non trouvée', 404));
+    return next(new HttpError('Artiste non trouvé', 404));
   }
   
-  res.json({ game: game.toObject({ getters: true }) }); 
+  res.json({ artiste: artiste.toObject({ getters: true }) }); 
 };
 
 //post
-const createGame = async (req, res, next) => {
+const createArtiste = async (req, res, next) => {
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty()) {
     return next(
       new HttpError('données saisies invalides valider votre payload', 422)
     );
   }
-  const { titre, categorie, nombreJoueurs, duree } = req.body;
+  const { name, category, songPop, image, description } = req.body;
 
   let user;
   const userId = req.userData.userId;
@@ -61,54 +61,56 @@ const createGame = async (req, res, next) => {
         return next(error);
     }
 
-  const createdGame = new Game({
-    titre,
-    categorie,
-    nombreJoueurs,
-    duree,
+  const createdArtiste = new Artiste({
+    name,
+    category,
+    songPop,
+    image,
+    description
   });
 
   try{
-    await createdGame.save();
+    await createdArtiste.save();
   }catch (err){
     console.log("L'action sur la BD a échoué", err);
     return next(new HttpError("L'action sur la BD a échoué", 500))
   }
 
-  res.status(201).json({ game: createdGame });
+  res.status(201).json({ artiste: createdArtiste });
 };
 
 //put
-const updateGame = async(req, res, next) => {
-  const { titre, categorie, nombreJoueurs, duree } = req.body;
-  const gameId = req.params.id;
+const updateArtiste = async(req, res, next) => {
+  const { name, category, songPop, image, description } = req.body;
+  const artisteId = req.params.id;
   
-  let updatedGame 
+  let updatedArtiste 
   try{
-    updatedGame = await Game.findById(gameId);
-    updatedGame.titre = titre;
-    updatedGame.categorie = categorie;
-    updatedGame.nombreJoueurs = nombreJoueurs;
-    updatedGame.duree = duree;
-    await updatedGame.save();
+    updatedArtiste = await Artiste.findById(artisteId);
+    updatedArtiste.name = name;
+    updatedArtiste.category = category;
+    updatedArtiste.songPop = songPop;
+    updatedArtiste.image = image;
+    updatedArtiste.description = description;
+    await updatedArtiste.save();
   }catch (err){
     console.log("L'action sur la BD a échoué", err);
     return next(new HttpError("L'action sur la BD a échoué", 500))
   }
 
-  res.status(200).json({ game: updatedGame });
+  res.status(200).json({ artiste: updatedArtiste });
 };
 
 //delete
-const deleteGame = async (req, res, next) => {
-  const gameId = req.params.id;
+const deleteArtiste = async (req, res, next) => {
+  const artisteId = req.params.id;
   try{
-    const game = await Game.findByIdAndDelete(gameId);
+    const artiste = await Artiste.findByIdAndDelete(artisteId);
 
-    if(!game){
-      return res.status(404).json({ message: 'Jeu non trouvée' });
+    if(!artiste){
+      return res.status(404).json({ message: 'Artiste non trouvé' });
     }
-    return res.status(200).json({ message: 'Jeu supprimée' })
+    return res.status(200).json({ message: 'Artiste supprimé' })
   }catch(err){
     console.log("Échec de l'opération sur la base de données", err);
     return next(new HttpError("Échec de l'opération sur la base de données", 500))
@@ -117,9 +119,9 @@ const deleteGame = async (req, res, next) => {
 };
 
 export default {
-  getGames,
-  getGamesById,
-  createGame,
-  updateGame,
-  deleteGame,
+  getArtistes,
+  getArtistesById,
+  createArtiste,
+  updateArtiste,
+  deleteArtiste,
 };

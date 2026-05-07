@@ -1,30 +1,31 @@
 import express from 'express';
 import { check } from 'express-validator';
 import checkAuth from '../middleware/check-auth.js';
-import gamesController from '../controllers/games-controller.js';
+import artistesController from '../controllers/artistes-controller.js';
 
 const router = express.Router();
 
-// Middleware pour obtenir toutes les jeux
-router.get('/', gamesController.getGames);
+//Middleware pour obtenir toutes les jeux
+router.get('/', artistesController.getArtistes);
 
-router.get('/:id', gamesController.getGamesById);
+router.get('/:id', artistesController.getArtistesById);
 
 router.use(checkAuth);
 
 router.post(
   '/',
   [
-    check('titre').not().isEmpty(),
-    check('categorie').not().isEmpty(),
-    check('nombreJoueurs').not().isEmpty(),
-    check('duree').not().isEmpty(),
+    check('name').not().isEmpty(),
+    check('category').not().isEmpty(),
+    check('songPop').not().isEmpty(),
+    check('image').optional(),
+    check('description').not().isEmpty(),
   ],
-  gamesController.createGame
+  artistesController.createArtiste
 );
 
-router.patch('/:id', gamesController.updateGame);
+router.patch('/:id', artistesController.updateArtiste);
 
-router.delete('/:id', gamesController.deleteGame);
+router.delete('/:id', artistesController.deleteArtiste);
 
 export default router;

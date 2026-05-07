@@ -1,0 +1,204 @@
+{
+  "info": {
+    "_postman_id": "4c78fb5f-6927-46fc-b1cb-32140c38ed27",
+    "name": "/api/artistes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52765569",
+    "_collection_link": "https://go.postman.co/collection/52765569-4c78fb5f-6927-46fc-b1cb-32140c38ed27?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "add Artiste",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZiZTJjY2YyYzA4YTMxOThkZWU4ZmQiLCJlbWFpbCI6InNoYW5pY2VkYXVkaWVyQGhvdG1haWwuY29tIiwiaWF0IjoxNzc4MTE1MzgyLCJleHAiOjE3NzgxMTg5ODJ9.oQm6rAEUUzG8DvuJqGolmlWByitFo87IrM-KA1PMb5k",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZiZTJjY2YyYzA4YTMxOThkZWU4ZmQiLCJlbWFpbCI6InNoYW5pY2VkYXVkaWVyQGhvdG1haWwuY29tIiwiaWF0IjoxNzc4MTE1MzgyLCJleHAiOjE3NzgxMTg5ODJ9.oQm6rAEUUzG8DvuJqGolmlWByitFo87IrM-KA1PMb5k",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"name\": \"Mardi\",\r\n        \"category\": \"R&B\",\r\n        \"songPop\": \"Stars\",\r\n        \"image\": \"https://via.placeholder.com/300\",\r\n        \"description\": \"hello\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/artistes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "artistes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Artistes",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/artistes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "artistes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Artiste (ID)",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/artistes/69fbe516f2c08a3198dee8ff",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "artistes",
+            "69fbe516f2c08a3198dee8ff"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Mod Artiste",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZiZTJjY2YyYzA4YTMxOThkZWU4ZmQiLCJlbWFpbCI6InNoYW5pY2VkYXVkaWVyQGhvdG1haWwuY29tIiwiaWF0IjoxNzc4MTE1MzgyLCJleHAiOjE3NzgxMTg5ODJ9.oQm6rAEUUzG8DvuJqGolmlWByitFo87IrM-KA1PMb5k",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZiZTJjY2YyYzA4YTMxOThkZWU4ZmQiLCJlbWFpbCI6InNoYW5pY2VkYXVkaWVyQGhvdG1haWwuY29tIiwiaWF0IjoxNzc4MTE1MzgyLCJleHAiOjE3NzgxMTg5ODJ9.oQm6rAEUUzG8DvuJqGolmlWByitFo87IrM-KA1PMb5k",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Blynk\",\r\n    \"category\": \"R&B\",\r\n    \"songPop\": \"Paradis\",\r\n    \"image\": \"https://via.placeholder.com/200\",\r\n    \"description\": \"holla\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/artistes/69fbe516f2c08a3198dee8ff",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "artistes",
+            "69fbe516f2c08a3198dee8ff"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Supprimer Artiste",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZiZTJjY2YyYzA4YTMxOThkZWU4ZmQiLCJlbWFpbCI6InNoYW5pY2VkYXVkaWVyQGhvdG1haWwuY29tIiwiaWF0IjoxNzc4MTE1MzgyLCJleHAiOjE3NzgxMTg5ODJ9.oQm6rAEUUzG8DvuJqGolmlWByitFo87IrM-KA1PMb5k",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWZiZTJjY2YyYzA4YTMxOThkZWU4ZmQiLCJlbWFpbCI6InNoYW5pY2VkYXVkaWVyQGhvdG1haWwuY29tIiwiaWF0IjoxNzc4MTE1MzgyLCJleHAiOjE3NzgxMTg5ODJ9.oQm6rAEUUzG8DvuJqGolmlWByitFo87IrM-KA1PMb5k",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/artistes/69fbe516f2c08a3198dee8ff",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "artistes",
+            "69fbe516f2c08a3198dee8ff"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -13,7 +13,7 @@ export const ARTISTES = [
         image: enima,
         description: "Enima est un artiste montréalais qui occupe une place importante dans le rap québécois actuel. Il se fait connaître par un style qui mélange le rap et le chant, avec des mélodies accrocheuses et une utilisation marquée de l'autotune. Sa musique s'inscrit surtout dans le trap mélodique, un genre très présent dans la scène moderne",
     },
-     {
+    {
         id: "a2",
         name: "Lost",
         category: "Rap",
@@ -21,7 +21,7 @@ export const ARTISTES = [
         image: lost,
         description: "Lost est un rappeur montréalais reconnu dans la scène rap locale pour son style plus sombre et direct. Sa musique s'inscrit principalement dans le drill et le rap street, avec des instrumentales intenses et une approche plus brute que certains autres artistes de Montréal.",
     },
-     {
+    {
         id: "a3",
         name: "Shreez",
         category: "Rap",

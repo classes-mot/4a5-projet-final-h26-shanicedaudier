@@ -9,7 +9,7 @@ const checkAuth = (req, res, next) => {
     if (!token) {
     throw new Error("Authentification échouée...");
     }
-    const decodedToken = jwt.verify(token, "shuSH2!");
+    const decodedToken = jwt.verify(token, "chUt2!");
     req.userData = { userId: decodedToken.userId, role: decodedToken.role };
     next();
   } catch (err) {

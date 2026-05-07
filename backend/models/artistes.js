@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 
-const gameSchemas = new mongoose.Schema({
-    titre: { type: String, required: true },
-    categorie: { type: String, required: true },
-    nombreJoueurs: { type: Number, required: true },
-    duree: { type: String, required: true },
+const artisteSchemas = new mongoose.Schema({
+    name: { type: String, required: true },
+    category: { type: String, required: true },
+    songPop: { type: String, required: true },
+    image: { type: String, },
+    description: { type: String, required: true },
 })
 
-export const Game = mongoose.model('Game', gameSchemas);
+export const Artiste = mongoose.model('Artiste', artisteSchemas);

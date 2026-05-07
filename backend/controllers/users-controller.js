@@ -62,7 +62,7 @@ const login = async (req, res, next) => {
         userId: identifiedUser.id,
         email: identifiedUser.email
       },
-      'shuSH2!', 
+      'chUt2!', 
       { expiresIn: '1h' }
     );
   } catch (err) {
