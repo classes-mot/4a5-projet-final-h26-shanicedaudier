@@ -1,6 +1,7 @@
 import "./ArtisteImage.css";
 
 const ArtisteImage = (props) => {
+    //Si une image est disponible, l'afficher
     if (props.image) {
         return (
             <img
@@ -11,7 +12,7 @@ const ArtisteImage = (props) => {
         );
     }
 
-    // Placeholder avec initiale si pas d'image
+    //Sinon, afficher un placeholder avec la premiere lettre du nom de l'artiste
     return (
         <div className="artiste_image_placeholder">
             <span>{props.name ? props.name.charAt(0).toUpperCase() : "?"}</span>

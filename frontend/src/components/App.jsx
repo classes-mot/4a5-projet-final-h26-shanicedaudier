@@ -14,13 +14,14 @@ import ArtisteDetailPage from "../containers/ArtisteDetailPage";
 
 
 const App = () => {
+    //recuperer les donnees de session stockees au chargement de la page
     const storedIdUtilisateur = sessionStorage.getItem('idUtilisateur');
     const storedCourrielUtilisateur = sessionStorage.getItem('courrielUtilisateur');
-
+    //etats globaux de l'utilisateur connecte
     const [isLoggedIn, setIsLoggedIn] = useState(!!storedIdUtilisateur);
     const [idUtilisateur, setIdUtilisateur] = useState(storedIdUtilisateur);
     const [courrielUtilisateur, setCourrielUtilisateur] = useState(storedCourrielUtilisateur);
-
+    //fonction de connexion, met a jour l'etat et sauvegarde dans le localStorage
     const login = (userId, email) => {
         setIsLoggedIn(true);
         setIdUtilisateur(userId);
@@ -29,7 +30,7 @@ const App = () => {
         localStorage.setItem('courrielUtilisateur', email);
     };
 
-
+    //fonction de deconnexion, reinitialise l'etat et supprime du localStorage
     const logout = () => {
         setIsLoggedIn(false);
         setIdUtilisateur(null);
@@ -77,6 +78,7 @@ const App = () => {
                 { path: "artistes/:artisteId", element: <ArtisteDetailPage/> },
             ],
         },
+        //redirection vers la liste admin pour toute route inconnue
         { 
             path: "*", 
             element: <Navigate to="/admin/artistes" replace /> 
@@ -91,6 +93,7 @@ const App = () => {
         logout: logout
     };
 
+    //affiche le routeur admin si connecte, sinon le routeur public
     return (
         <AuthContext.Provider value={authContextValue}>
             <RouterProvider router={isLoggedIn ? adminRouter : publicRouter} />

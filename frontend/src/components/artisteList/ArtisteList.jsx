@@ -26,15 +26,16 @@ const ArtisteList = (props) => {
         });
     });
 
-
+    //Terme de recherche saisi par l'utilisateur
     const [searchTerm, setSearchTerm] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null);
     const auth = useContext(AuthContext);
     const { t } = useTranslation();
 
+    // Sauvegarder la liste dans le localStorage a chaque modification
+    // On exclut l'image par defaut pour ne pas stocker les chemins Vite
     useEffect(() => {
-        // Sauvegarder sans l'image par défaut (pour ne pas polluer le localStorage avec des chemins Vite)
         const stocker = artistes.map(({ image, ...reste }) => reste);
         localStorage.setItem("artistes", JSON.stringify(stocker));
     }, [artistes]);
@@ -54,7 +55,7 @@ const ArtisteList = (props) => {
         setArtistes(prevArtistes => prevArtistes.filter(artiste => artiste.id !== idToDelete));
         cancelDeleteHandler();
     }
-
+    //Filtrer les artistes selon le terme de recherche
     const filtrerArtistes = artistes.filter((artiste) =>
         artiste.name.toLowerCase().includes(searchTerm.toLowerCase())
     );

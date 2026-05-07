@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const ArtisteCard = (props) => {
+  //acceder au contexte pour verifier si utilisateur connecté
   const auth = useContext(AuthContext);
+  //crochet de traduction pour les etiquettes (categorie, chanson, etc.)
   const { t } = useTranslation();
 
   return (
@@ -16,14 +18,14 @@ const ArtisteCard = (props) => {
        <Link to={`/artistes/${props.id}`} className="ArtisteCard_header">
           <ArtisteImage image={props.image} name={props.name}/>
         </Link>
-
+        {/*Informations sur l'Artiste */}
         <div className="ArtisteCard_info">
           <h2>{props.name}</h2>
           <p>{t("carte.categorie")} : {props.category}</p>
           <p>{t("carte.chanson")} : {props.songPop}</p>
           <p>{t("carte.description")} : {props.description}</p>
         </div>
-
+        {/*boutons visibles juste pr l'admin*/}
         {auth.loggedIn && 
         <div className="ArtisteCard_actions">
           <Link to={`/admin/artistes/edit/${props.id}`}>

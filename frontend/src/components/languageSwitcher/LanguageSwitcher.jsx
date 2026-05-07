@@ -2,8 +2,10 @@ import { useTranslation } from 'react-i18next';
 import './LanguageSwitcher.css';
 
 export default function LanguageSwitcher() {
+    //accéder à la langue active et l'a changé
     const { i18n } = useTranslation();
 
+    //changer la langue du site
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
     };

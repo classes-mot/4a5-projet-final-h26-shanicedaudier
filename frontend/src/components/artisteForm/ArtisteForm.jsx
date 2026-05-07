@@ -8,12 +8,13 @@ const ArtisteForm = () => {
     const { artisteId } = useParams();
     const fileInputRef = useRef();
 
+    //initialisation du formulaire avec les données existantes si en mode modification
     const [formData, setFormData] = useState(() =>{
        if (artisteId) {
             const storedArtistes = JSON.parse(localStorage.getItem("artistes")) || [];
             const artisteToEdit = storedArtistes.find((artiste) => artiste.id === artisteId);
             if (artisteToEdit) {return artisteToEdit};
-       } return {
+       } return { //valeurs par défaut
             name: "",
             category: "Rap",
             songPop: "",
@@ -22,10 +23,14 @@ const ArtisteForm = () => {
         };
     });
 
+    //apercu de l,image selectionnée
     const [preview, setPreview] = useState(formData.image || null);
+    //état des messages d'erreur de validation
     const [errors, setErrors] = useState({});
+    //état détecter si utilisateur drag and drop
     const [isDragging, setIsDragging] = useState(false);
 
+    //mettre a jour le nom
     useEffect(() => {
         if (artisteId) {
             document.name = `Modification : ${formData.name}`;
@@ -34,11 +39,12 @@ const ArtisteForm = () => {
         }
     }, [artisteId, formData.name]);
 
+    //mettre à jour champ du formulaire pour changement de valeur
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
-
+    //convertir image selectionnée en base64 pour la stocker
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -51,13 +57,13 @@ const ArtisteForm = () => {
         };
         reader.readAsDataURL(file);
     };
-
+    // supprimer l'image et reinitailiser
     const handleRemoveImage = () => {
         setPreview(null);
         setFormData((prev) => ({ ...prev, image: null }));
         if (fileInputRef.current) fileInputRef.current.value = "";
     };
-
+    //gerer le depot d'image par drag and drop
     const handleDrop = (e) => {
         e.preventDefault();
         setIsDragging(false);
@@ -72,6 +78,7 @@ const ArtisteForm = () => {
         reader.readAsDataURL(file);
     };
 
+    //valider les champs obligatoires
     const validate = () => {
         let errs = {};
         if (!formData.name.trim()) errs.name = "Le nom est requis.";
@@ -81,20 +88,23 @@ const ArtisteForm = () => {
         return Object.keys(errs).length === 0;
     };
 
+    //sauvegarder l'artiste dans local storage
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!validate()) return;
 
         let storedArtistes = JSON.parse(localStorage.getItem("artistes")) || [];
-        //Sauvegarder l'image uploadée dans imageUploadee (séparé de l'image par défaut)
+        //separer l'image uploadee des autres donnees pour la stocker dans imageUploadee
         const { image, ...donneesSansImage } = formData;
         const donneesAStorager = {
             ...donneesSansImage,
             imageUploadee: image && image.startsWith("data:") ? image : undefined,
         };
         if (artisteId) {
+            //mise a jour artiste existant
             storedArtistes = storedArtistes.map((artiste) => (artiste.id === artisteId ? { ...donneesAStorager } : artiste));
         } else {
+            //ajout nouvel artiste avec identifiant aléatoire
             const newArtiste = { ...donneesAStorager, id: "artiste" + Math.random().toString(36).substring(2, 4) };
             storedArtistes.push(newArtiste);
         }
@@ -139,7 +149,7 @@ const ArtisteForm = () => {
                         />
                         {errors.songPop && <span className="error">{errors.songPop}</span>}
                     </div>
-
+                    {/*zone téléchargement d'image avec drag and drop*/}
                     <div className="control">
                         <label>Image de l'artiste</label>
                         <div
@@ -149,6 +159,7 @@ const ArtisteForm = () => {
                             onDragLeave={() => setIsDragging(false)}
                             onDrop={handleDrop}
                         >
+                            {/*apercu de l'image oiu message dMinvitation*/}
                             {preview ? (
                                 <img src={preview} alt="Aperçu" className="image_preview" />
                             ) : (
@@ -157,7 +168,7 @@ const ArtisteForm = () => {
                                 </div>
                             )}
                         </div>
-
+                        {/*Input fichier caché, déclenché par le clic sur la zone*/}
                         <input
                             ref={fileInputRef}
                             type="file"
@@ -165,6 +176,7 @@ const ArtisteForm = () => {
                             onChange={handleImageChange}
                             style={{ display: "none" }}
                         />
+                        {/*bouton pour supprimer l'image choisie*/}
                         {preview && (
                             <button type="button" className="btn_remove_image" onClick={handleRemoveImage}>
                                 Supprimer l'image

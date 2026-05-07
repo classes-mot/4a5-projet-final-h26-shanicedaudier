@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import "./ArtisteDetail.css";
 import { useTranslation } from "react-i18next";
 
+//titre du site
 const BrandTitle = () => (
     <Link to="/" className="detail_brand">
         <div className="detail_brand_top">
@@ -27,16 +28,18 @@ const ArtisteDetail = () => {
 
     // Toujours prendre les données de artistes.js comme source principale
     const defaut = ARTISTES.find((a) => a.id === artisteId);
+    //chercher les données modifiées stockeées dans le localstorage 
     const stored = JSON.parse(localStorage.getItem("artistes")) || [];
     const storedArtiste = stored.find((a) => a.id === artisteId);
 
+    //si l'artiste n'existe pas
     if (!defaut) {
         return <div className="detail_not_found"><p>Artiste introuvable.</p></div>;
     }
 
     const artiste = {
         ...storedArtiste,
-        // Ces champs viennent TOUJOURS de artistes.js pour éviter les données corrompues du localStorage
+        
         id: defaut.id,
         name: defaut.name,
         category: defaut.category,
@@ -47,7 +50,7 @@ const ArtisteDetail = () => {
         imageDetail: storedArtiste?.imageUploadee || defaut.imageDetail || defaut.image,
     };
 
-    // Convertir lien YouTube en embed — bug corrigé (musique.com → youtube.com)
+   //convertir le lien youtube
     const getYoutubeEmbed = (url) => {
         if (!url) return null;
         const match = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
@@ -59,7 +62,9 @@ const ArtisteDetail = () => {
     return (
         <div className="detail_container">
             <div className="detail_topbar">
+                {/*titre cliquable*/}
                 <BrandTitle />
+                {/*bouton page précédente*/}
                 <button className="detail_back" onClick={() => navigate(-1)}>{t("detail.retour")}</button>
             </div>
 
@@ -74,7 +79,7 @@ const ArtisteDetail = () => {
                 <div className="detail_overlay">
                     <span className="detail_category">{artiste.category}</span>
                     <h1 className="detail_name">{artiste.name}</h1>
-                    <p className="detail_songpop">🎵 {artiste.songPop}</p>
+                    <p className="detail_songpop"> {artiste.songPop}</p>
                 </div>
             </div>
 
@@ -83,7 +88,7 @@ const ArtisteDetail = () => {
                     <h2>{t("detail.apropos")}</h2>
                     <p>{artiste.description}</p>
                 </div>
-
+                {/*vidéo yt en embed, affiche juste si lien valide*/ }
                 {embedUrl && (
                     <div className="detail_musique">
                         <h2>{t("detail.chansonPop")}</h2>
@@ -97,7 +102,7 @@ const ArtisteDetail = () => {
                         </div>
                     </div>
                 )}
-
+                {/*bouton modifier visible juste pr admin*/}
                 {auth.loggedIn && (
                     <div className="detail_actions">
                         <Link to={`/admin/artistes/edit/${artiste.id}`}>
