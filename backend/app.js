@@ -5,6 +5,9 @@ import errorHandler from "./handler/error-handler.js";
 import artistesRoutes from './routes/artistes-routes.js';
 import usersRoutes from './routes/users-routes.js';
 
+const PORT = process.env.PORT || 3000;
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/db-deployement";
 //Se connecter à MongoDB
 await connectMongo();
 
@@ -21,8 +24,8 @@ app.use('/api/users', usersRoutes);
 app.use(errorHandler);
 
 
-app.listen(5000, () => {
-    console.log('serveur écoute au', `http://localhost:5000`);
+app.listen(PORT, () => {
+    console.log(`serveur écoute au ${PORT}`);
 });
 
 
