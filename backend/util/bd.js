@@ -2,14 +2,15 @@ import mongoose from 'mongoose';
 
 let isConnected = false;
 
-export const connectDB = async (db_uri) => {
+export const connectMongo = async () => {
   if (isConnected) return;
+  let uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/tpsynthesedb';
   try {
-    await mongoose.connect(db_uri);
+    await mongoose.connect(uri);
     isConnected = true;
     console.log('Connexion MongoDB réussie');
   } catch (err) {
     console.error('Erreur de connexion MongoDB :', err.message);
-    process.exit(1); // Arrête le serveur en cas d’échec
+    process.exit(1);
   }
 };
