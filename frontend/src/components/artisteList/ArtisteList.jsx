@@ -140,7 +140,7 @@ const ArtisteList = (props) => {
                 </ul>
             )}
              <div className="admin_link_wrapper">
-                <Link to="/admin/login" className="admin_link">{t("liste.administration")}</Link>
+                <Link to="/admin/register" className="admin_link">{t("liste.administration")}</Link>
             </div>
         </div>
     );
