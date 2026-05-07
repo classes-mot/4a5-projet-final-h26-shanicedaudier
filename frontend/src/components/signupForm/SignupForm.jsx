@@ -3,8 +3,10 @@ import "./SignupForm.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { UTILISATEURS } from "../../data/utilisateurs";
+import { useTranslation } from "react-i18next";
 
 export default function Signup() {
+    const { t } = useTranslation();
 
     const [passwordNotEqual, setPasswordNotEqual] = useState(false);
     const [emailExiste, setEmailExiste] = useState(false);
@@ -53,18 +55,18 @@ export default function Signup() {
                 <p className="subtitle">Nous avons besoin de vos informations pour comencer.</p>
 
                 <div className="control">
-                    <label htmlFor="email">Courriel</label>
+                    <label htmlFor="email">{t("inscription.courriel")}</label>
                     <input id="email" type="email" name="courriel" required />
                     {emailExiste && <div className="erreur_msg">Ce courriel est déjà utilisé.</div>}
                 </div>
 
                 <div className="control_row">
                     <div className="control">
-                        <label htmlFor="password">Mot de passe</label>
+                        <label htmlFor="password">{t("inscription.motdepasse")}</label>
                         <input id="password" type="password" name="password" />
                     </div>
                     <div className="control">
-                        <label htmlFor="confirmez-mdp">Confirmez le mot de passe</label>
+                        <label htmlFor="confirmez-mdp">{t("inscription.confirmer")}</label>
                         <input
                             id="confirmez-mdp"
                             type="password"
@@ -85,12 +87,12 @@ export default function Signup() {
 
                 <div className="control_row">
                     <div className="control">
-                        <label htmlFor="first-name">Prénom</label>
+                        <label htmlFor="first-name">{t("inscription.prenom")}</label>
                         <input id="first-name" type="text" name="first-name" />
                     </div>
 
                     <div className="control">
-                        <label htmlFor="last-name">Nom</label>
+                        <label htmlFor="last-name">{t("inscription.nom")}</label>
                         <input id="last-name" type="text" name="last-name" />
                     </div>
                 </div>
@@ -98,13 +100,13 @@ export default function Signup() {
                 <div className="control checkbox">
                     <label htmlFor="terms-and-conditions">
                         <input type="checkbox" id="terms-and-conditions" name="terms" required />
-                        J'accepte les conditions générales de ce site web
+                        {t('inscription.conditions')}
                     </label>
                 </div>
 
                 <p className="btn_actions">
-                    <button type="reset" className="button button_outline">Réinitialiser</button>
-                    <button type="submit" className="button button_submit">S'inscrire</button>
+                    <button type="reset" className="button button_outline">{t("inscription.reinitialiser")}</button>
+                    <button type="submit" className="button button_submit">{t('inscription.inscrire')}</button>
                 </p>
             </form>
         </div>

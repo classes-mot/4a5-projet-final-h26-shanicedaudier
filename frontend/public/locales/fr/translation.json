@@ -1,0 +1,74 @@
+{
+  "navigation": {
+    "artistes": "Artistes",
+    "ajouter": "Ajouter un artiste",
+    "deconnexion": "Déconnexion"
+  },
+  "hero": {
+    "tag": "Scène musicale de Montréal",
+    "titre1": "Découvrez les artistes",
+    "titre2": "qui font",
+    "accent": "vibrer Montréal",
+    "description": "Explorez la scène musicale montréalaise : rap, R&B, pop et bien plus. Chaque artiste, une histoire unique.",
+    "ville": "Montréal",
+    "villeLabel": "Ville",
+    "genresLabel": "Genres"
+  },
+  "liste": {
+    "rechercher": "Rechercher un artiste...",
+    "aucun": "Aucun artiste trouvé.",
+    "administration": "Administration"
+  },
+  "carte": {
+    "categorie": "Catégorie",
+    "chanson": "Chanson la plus populaire",
+    "description": "Description",
+    "modifier": "Modifier",
+    "supprimer": "Supprimer"
+  },
+  "detail": {
+    "retour": "← Retour",
+    "apropos": "À propos",
+    "chansonPop": "Chanson populaire"
+  },
+  "formulaire": {
+    "titreAjouter": "Ajouter un artiste",
+    "titreModifier": "Modifier l'artiste",
+    "photo": "Photo de l'artiste",
+    "cliquerImage": "Cliquer ou déposer une image ici",
+    "supprimerImage": "Supprimer l'image",
+    "nom": "Nom",
+    "categorie": "Catégorie",
+    "chanson": "Chanson la plus populaire",
+    "description": "Description",
+    "enregistrer": "Enregistrer",
+    "annuler": "Annuler"
+  },
+  "connexion": {
+    "titre": "Connexion",
+    "courriel": "Courriel",
+    "motdepasse": "Mot de passe",
+    "reinitialiser": "Réinitialiser",
+    "connecter": "Se connecter"
+  },
+  "inscription": {
+    "titre": "Bienvenue !",
+    "sousTitre": "Nous avons besoin de vos informations pour commencer.",
+    "courriel": "Courriel",
+    "motdepasse": "Mot de passe",
+    "confirmer": "Confirmez le mot de passe",
+    "prenom": "Prénom",
+    "nom": "Nom",
+    "conditions": "J'accepte les conditions générales de ce site web",
+    "reinitialiser": "Réinitialiser",
+    "inscrire": "S'inscrire",
+    "erreurMdp": "Les mots de passe doivent être pareils !",
+    "erreurEmail": "Ce courriel est déjà utilisé."
+  },
+  "modal": {
+    "confirmation": "Confirmation",
+    "annuler": "Annuler",
+    "confirmer": "Confirmer",
+    "supprimerMessage": "Êtes-vous sûr de vouloir supprimer cet artiste ?"
+  }
+}

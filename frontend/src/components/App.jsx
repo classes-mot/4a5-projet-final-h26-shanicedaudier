@@ -10,7 +10,7 @@ import NewArtiste from "../containers/NewArtiste";
 import UpdateArtiste from "../containers/UpdateArtiste";
 import Subscribe from "../containers/Subscribe";
 import AdminNavigation from "./Navigation/AdminNavigation";
-
+import ArtisteDetailPage from "../containers/ArtisteDetailPage";
 
 
 const App = () => {
@@ -46,6 +46,7 @@ const App = () => {
             errorElement: <ErrorPage/>,
             children: [
                 { index: true, element: <Cards/> },
+                { path: "artistes/:artisteId", element: <ArtisteDetailPage/> }
             ],
         },
         { 
@@ -73,6 +74,7 @@ const App = () => {
                 { path: "admin/artistes", element: <Cards/> },
                 { path: "admin/newArtiste", element: <NewArtiste/> },
                 { path: "admin/artistes/edit/:artisteId", element: <UpdateArtiste/> },
+                { path: "artistes/:artisteId", element: <ArtisteDetailPage/> },
             ],
         },
         { 

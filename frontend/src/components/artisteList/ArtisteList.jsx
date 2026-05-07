@@ -4,23 +4,26 @@ import { AuthContext } from "../../context/AuthContext";
 import ArtisteCard from "../artisteCard/ArtisteCard";
 import Modal from "../modal/modal";
 import { useState, useEffect, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import heroBg from "../../assets/city.webp";
 
 const ArtisteList = (props) => {
 
     const [artistes, setArtistes] = useState(() => {
         const storedArtistes = localStorage.getItem("artistes");
-        if (storedArtistes) {
-            const parsed = JSON.parse(storedArtistes);
-            // Merger avec les images par défaut de artistes.js
-            // L'image uploadée (base64 data:) est prioritaire, sinon on prend celle de artistes.js
-            return parsed.map((artiste) => {
-                const defaut = props.items.find((a) => a.id === artiste.id);
-                const imageFinale = artiste.imageUploadee || defaut?.image || null;
-                return { ...artiste, image: imageFinale };
-            });
-        }
-        return props.items;
+        // Toujours partir de artistes.js comme source principale
+        // On récupère seulement l'image uploadée du localStorage
+        return props.items.map((defaut) => {
+            if (storedArtistes) {
+                const parsed = JSON.parse(storedArtistes);
+                const stored = parsed.find((a) => a.id === defaut.id);
+                return {
+                    ...defaut,
+                    image: stored?.imageUploadee || defaut.image,
+                };
+            }
+            return defaut;
+        });
     });
 
 
@@ -28,6 +31,7 @@ const ArtisteList = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null);
     const auth = useContext(AuthContext);
+    const { t } = useTranslation();
 
     useEffect(() => {
         // Sauvegarder sans l'image par défaut (pour ne pas polluer le localStorage avec des chemins Vite)
@@ -106,7 +110,7 @@ const ArtisteList = (props) => {
             <div className="list_header">
                 <input
                     type="text"
-                    placeholder="Rechercher un artiste..."
+                    placeholder={t("liste.rechercher")}
                     className="search_bar"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -116,7 +120,7 @@ const ArtisteList = (props) => {
 
             {filtrerArtistes.length === 0 ? (
                 <div className="list_center">
-                    <p>Aucun artiste trouvé.</p>
+                    <p>{t("liste.aucun")}</p>
                 </div>
             ) : (
                 <ul className="artistes_list">
@@ -135,7 +139,7 @@ const ArtisteList = (props) => {
                 </ul>
             )}
              <div className="admin_link_wrapper">
-                <Link to="/admin/login" className="admin_link">Administration</Link>
+                <Link to="/admin/login" className="admin_link">{t("liste.administration")}</Link>
             </div>
         </div>
     );

@@ -2,8 +2,10 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function LoginForm() {
+    const { t } = useTranslation();
 
     const [mdpVide, setMdpVide] = useState(false);
     const [emailVide, setEmailVide] = useState(false);
@@ -78,8 +80,8 @@ export default function LoginForm() {
                     </div>
                 </div>
                 <p className="btn_actions">
-                    <button type="reset" className="button button_outline">Réinitialiser</button>
-                    <button type="submit" className="button button_submit">Se connecter</button>
+                    <button type="reset" className="button button_outline">{t("connexion.reinitialiser")}</button>
+                    <button type="submit" className="button button_submit">{t("connexion.connecter")}</button>
                 </p>
             </form>
         </div>

@@ -4,30 +4,32 @@ import Card from "../UIElements/Card";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ArtisteCard = (props) => {
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
+  const { t } = useTranslation();
 
   return (
     <li className="ArtisteCard">
       <Card className="ArtisteCard_content">
-        <div className="ArtisteCard_header">
+       <Link to={`/artistes/${props.id}`} className="ArtisteCard_header">
           <ArtisteImage image={props.image} name={props.name}/>
-        </div>
+        </Link>
 
         <div className="ArtisteCard_info">
           <h2>{props.name}</h2>
-          <p>Catégorie : {props.category}</p>
-          <p>Chanson la plus populaire : {props.songPop}</p>
-          <p>Description : {props.description}</p>
+          <p>{t("carte.categorie")} : {props.category}</p>
+          <p>{t("carte.chanson")} : {props.songPop}</p>
+          <p>{t("carte.description")} : {props.description}</p>
         </div>
 
         {auth.loggedIn && 
         <div className="ArtisteCard_actions">
           <Link to={`/admin/artistes/edit/${props.id}`}>
-            <button className="btn-pink">Modifier</button>
+            <button className="btn-pink">{t("carte.modifier")}</button>
           </Link>
-          <button className="btn-pink-outline" onClick={() => props.OnDelete(props.id)}>Supprimer</button>
+          <button className="btn-pink-outline" onClick={() => props.OnDelete(props.id)}>{t("carte.supprimer")}</button>
         </div>
         }
       </Card>

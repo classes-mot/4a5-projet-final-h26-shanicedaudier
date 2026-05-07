@@ -1,20 +1,15 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import NavLinks from "./NavLinks";
 import "./MainNavigation.css";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../UIElements/Backdrop";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
-const MainNavigation = (props) => {
+const MainNavigation = () => {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
-     const openDrawer = () => {
-        setDrawerIsOpen(true);
-    };
-
-    const closeDrawer = () => {
-        setDrawerIsOpen(false);
-    }
+    const openDrawer = () => setDrawerIsOpen(true);
+    const closeDrawer = () => setDrawerIsOpen(false);
 
     return (
         <>
@@ -28,14 +23,12 @@ const MainNavigation = (props) => {
             )}
             <header className="main-header">
                 <button className="main-navigation_MenuButton" onClick={openDrawer}>
-                    <span />
-                    <span />
-                    <span />
+                    <span /><span /><span />
                 </button>
-                
                 <nav className="main-navigation__header-nav">
                     <NavLinks />
                 </nav>
+                <LanguageSwitcher />
             </header>
         </>
     );

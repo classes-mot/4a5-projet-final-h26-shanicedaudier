@@ -1,5 +1,8 @@
 .ArtisteCard {
   list-style: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* enveloppe des cards */
@@ -10,6 +13,9 @@
   overflow: hidden;
   transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
   cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .ArtisteCard .card:hover {
   background: var(--bg-elevated);

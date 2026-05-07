@@ -1,11 +1,12 @@
 import "./NavLinks.css";
-import { NavLink } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const NavLinks = () => {
+    const { t } = useTranslation();
     return (
         <ul className="nav-links">
             <li>
-                <NavLink to="/" end>Artistes</NavLink>
+                <span className="nav-label">{t('navigation.artistes')}</span>
             </li>
         </ul>
     );
