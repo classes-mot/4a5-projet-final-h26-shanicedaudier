@@ -3,7 +3,7 @@ import NavLinks from "./NavLinks";
 import "./MainNavigation.css";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../UIElements/Backdrop";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+import LanguageSwitcher from "../languageSwitcher/LanguageSwitcher";
 
 const MainNavigation = () => {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
